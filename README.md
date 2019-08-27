@@ -26,7 +26,7 @@ Just copy contents of `balloonPicker` folder to your project
 Instantiate `BalloonPickerView` and add it to your view, or set to custom class of view in storyboard.
 Use target-action event `valueChanged` to track value changes.
 
-To customize balloon behavior you can instantiate `BalloonView` and set custom bacground image (see example), inherit your own class from it, or even create your own view conforming to `ProgressTracking` protocol (size of balloon is dermined by `intrinsicContentSize` property, so do not forget to return appropriate value).
+To customize balloon behavior you can instantiate `BalloonView` and set custom background image (see example), inherit your own class from it, or even create your own view conforming to `ProgressTracking` protocol (size of balloon is dermined by `intrinsicContentSize` property, so do not forget to return appropriate value).
 
 Do not set `clipToBounds = true` for picker view.
 
