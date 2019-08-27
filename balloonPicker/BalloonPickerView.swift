@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol ProgressTracking {
-    func update(value: Double)
+    func update(value: Double, minValue: Double, maxValue: Double)
 }
 
 public typealias ProgressTrackingView = UIView & ProgressTracking
@@ -58,7 +58,7 @@ public typealias ProgressTrackingView = UIView & ProgressTracking
         }
         set {
             _value = max(minimumValue, min(maximumValue, newValue))
-            baloonView.update(value: _value)
+            baloonView.update(value: _value, minValue: minimumValue, maxValue: maximumValue)
         }
     }
 

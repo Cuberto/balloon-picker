@@ -50,6 +50,7 @@ open class BalloonView: ProgressTrackingView {
         addSubview(imageView)
         addSubview(label)
         didUpdateTintColor()
+        clipsToBounds = false
     }
 
     override open var intrinsicContentSize: CGSize {
@@ -60,12 +61,14 @@ open class BalloonView: ProgressTrackingView {
         }
     }
 
+    private let defaultLabelOffset: CGFloat = 16
     override open func layoutSubviews() {
         super.layoutSubviews()
-        imageView.frame = self.bounds
+        imageView.frame = CGRect(x: bounds.width * (1 - scaleFactor)/2.0, y: bounds.height * (1 - scaleFactor),
+         width: bounds.width * scaleFactor, height: bounds.height * scaleFactor)
         label.sizeToFit()
         label.frame = CGRect(x: (bounds.width - label.frame.width)/2.0,
-                             y: 16,
+                             y:  bounds.height - imageView.frame.height *   (defaultSize - defaultLabelOffset)/defaultSize,
                              width: label.frame.width,
                              height: label.frame.height)
         if imageView.image == nil {
@@ -90,8 +93,13 @@ open class BalloonView: ProgressTrackingView {
         }
     }
 
-    open func update(value: Double) {
+    private var scaleFactor: CGFloat = 1.0
+    var minScale: CGFloat = 0.8
+    var maxScale: CGFloat = 1.3
+
+    open func update(value: Double, minValue: Double, maxValue: Double) {
         label.text = "\(Int(value))"
+        scaleFactor = minScale + (maxScale - minScale) * CGFloat(value / (maxValue - minValue))
         layoutSubviews()
     }
 }
